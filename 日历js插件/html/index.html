@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery输入框弹出日历时间插件DEMO演示</title>
+
+    <link rel="stylesheet" href="../css/dateTime.css">
+    <style>
+        /* .dateTimeFoot, .timeFooter {
+            display: none !important;
+        }
+        .mycontainer input {
+            border: 1px solid #ccc;
+            padding: 2px 10px;
+            background: #3496F3;
+            color: #fff;
+            border-radius: 13px;
+        } */
+        #date{
+            border:0 none;
+            outline:none !important;
+            cursor: pointer;
+            color:transparent;
+            text-shadow: 0px 0px 0px #333;
+            width: 60px;
+            text-align: center;
+            background: #3496F3;
+        }
+        #date:hover{
+            border: none !important;
+        }
+        .mycontainer{
+            position: relative;
+            width: 80px !important;
+        }
+        /* 遮盖回放按钮 */
+        .coverDiv{
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        /* 日历样式 */
+        .datePart{
+            color: #000;
+        }
+        .dateTimeWrap{
+            background: #555 !important;
+            border-radius: 5px !important;
+            background: #fff !important;
+        }
+        .curDay{
+            color: #fff !important;
+            background: #7C7EE5 !important;
+            border-radius: 49%;
+        }
+        .datePart li{
+            width: 26px !important;
+            margin: 2px !important;
+        }
+        #dayDat li:hover {
+            color: #fff !important;
+            background: #5052db !important;
+            /* border: 2px double transparent;
+            color: #000 !important; */
+            /* background: transparent !important; */
+            border-radius: 49%;
+        }
+        .myCurDay{
+            color: #fff !important;
+            background: #7C7EE5 !important;
+            border-radius: 49%;
+        }
+        .clearCurDay{
+            color: #000 !important;
+            background: transparent !important;
+        }
+        .dateTimeFoot{
+            display: none !important;
+        }
+        /* 回放样式 input 框 */
+        input#date::placeholder{
+            color: #fff;
+        }
+        .changeMonth span,
+        #dateTime select{
+            cursor: pointer !important;
+        }
+        .changeMonth #next{
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mycontainer">
+        <div class="coverDiv"></div>
+        <input type="text" value="" placeholder="回放" id="date" data-flag="false" onclick="listen.backLook(this)">
+    </div>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/dateTime.min.js"></script>
+    <script type="text/javascript">
+        var globalData = {
+            year:new Date().getFullYear(),
+            month:new Date().getMonth()+1,
+            day:new Date().getDate(),
+        }
+        $(function() {
+            init.dateTime();
+        })
+        var init = {
+            // 日历初始化
+            dateTime(){
+                var year = new Date().getFullYear();
+                var month = new Date().getMonth()+1;
+                var day = new Date().getDate();
+                globalData = {...globalData,year,month,day};
+                console.log(globalData, "globalData-----")
+                $("#date").datetime({
+                    type: "date",
+                    value: [year, month, day],
+                    success: function (res) {
+                        console.log(res);
+                        $("#date").val("");
+                    }
+                })
+            },
+            // 可回放日期样式
+            backLookAble(){
+                let prevElems = [];
+                let nextElem = ".curDay";
+                let cnt = 0;
+                if(globalData.day>=5){
+                    cnt = 4;
+                }else{
+                    cnt = globalData.day - 1;
+                }
+                for(let i=cnt;i>0;i--){
+                    nextElem = $(nextElem).prev();
+                    prevElems.push(nextElem);
+                }
+                prevElems.forEach(item => {
+                    $(item).addClass("myCurDay");
+                });
+            }
+        }
+        var listen = {
+            // 选择日期的 回调事件
+            changeTime(){
+                let year = $(".dateTimeHead .year").val();
+                let month = $(".dateTimeHead .month").val();
+                // 
+                if(Number(year) <= globalData.year-1 && Number(month)+1==1){
+                    console.log(year,month, "year----return");
+                    $(".changeMonth #pre").css({
+                        "visibility": "hidden"
+                    });
+                }else{
+                    $(".changeMonth #pre").css({
+                        "visibility": "visible"
+                    });
+                }
+                // 
+                if(Number(year) >= globalData.year && Number(month)+1>=globalData.month){
+                    console.log(year,month, "year----return");
+                    $(".changeMonth #next").css({
+                        "visibility": "hidden"
+                    });
+                }else{  
+                    $(".changeMonth #next").css({
+                        "visibility": "visible"
+                    });
+                }
+
+                if(globalData.year == Number(year) && globalData.month == Number(month)+1){
+                    $(".clearCurDay").removeClass("clearCurDay");
+                    init.backLookAble();
+                } else {
+                    $(".curDay").addClass("clearCurDay");
+                    $(".myCurDay").addClass("clearCurDay");
+                    if(globalData.day<5){
+                        if( (globalData.year == Number(year) && globalData.month == Number(month)+2) || ( Number(month)+1 == 12 && globalData.year-1 == Number(year) ) ){
+                            // 当月未超过 5 天，前一个月可看的视频日期
+                            let dayDatLis = $("#dayDat li")
+                            let prevElems = [];
+                            let nextElem = $("#dayDat li")[dayDatLis.length-1];
+                            prevElems.push(nextElem);
+                            for(let i=4-globalData.day;i>0;i--){
+                                // 查找当前元素 上一个兄弟元素
+                                nextElem = $(nextElem).prev();
+                                prevElems.push(nextElem);
+                            }    
+                            prevElems.forEach(item => {
+                                $(item).addClass("myCurDay");
+                            });
+                            $(".myCurDay").removeClass("clearCurDay");
+                        }
+                    }
+                }
+                console.log(year,month, "year----")
+            },
+            // 事件监听
+            changeMonth(){
+                // 上一个月
+                $(".changeMonth #pre").click(function() {
+                    listen.changeTime()
+                })
+                // 下一个月
+                $(".changeMonth #next").click(function() {
+                    listen.changeTime();
+                })
+                // select 选项框
+                $(".dateTimeHead select").change(function() {
+                    listen.changeTime();
+                })
+                $("#dayDat li").click(function() {
+                    $("#date").attr("data-flag", "false");
+                    $(".clearCurDay").removeClass("clearCurDay");
+                    // 在选日期后 回放按钮可按
+                    $(".coverDiv").hide();
+                })
+                $(".coverDiv").mouseenter(function() {
+                    let show = $(".dateTimeWrap").css("display");
+                    if(show == "none"){
+                        // 在选日期后 回放按钮可按
+                        $("#date").attr("data-flag", "false");
+                        $(".coverDiv").hide();
+                        return;
+                    }
+                })
+            },
+            // 回放事件
+            backLook(elem){
+                // var year = new Date().getFullYear();
+                // var month = new Date().getMonth()+1;
+                // var day = new Date().getDate();
+                let sel = $(elem).attr("data-flag");
+                if(sel === "false"){
+                    // 在选日期时 回放按钮不可在按
+                    $(".coverDiv").show();
+                    $(elem).attr("data-flag", "true");
+                    setTimeout(()=>{
+                        init.backLookAble();
+                        // 事件监听
+                        listen.changeMonth();
+                    },200)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

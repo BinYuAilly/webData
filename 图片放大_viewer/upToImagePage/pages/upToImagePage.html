@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../easyui/js/jquery.min.js"></script>
+    <script src="../js/viewer.js"></script>
+    <link  href="../css/viewer.css" rel="stylesheet">
+    <script src="../js/jquery-viewer.js"></script>
+    <style>
+        ul li{
+            list-style: none;
+        }
+        .centerContent{
+            display: flex;
+            justify-content: center;
+        }
+        .centerContent ul{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+            min-width: 500px;
+        }
+        .centerContent ul li,
+        .centerContent ul li img{
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="centerContent">
+        <ul id="images">
+            <!-- <li><img src="../img/2021467.jpg" alt="Picture 1"></li>
+            <li><img src="../img/2021467.jpg" alt="Picture 2"></li>
+            <li><img src="../img/2021467.jpg" alt="Picture 3"></li> -->
+        </ul>
+    </div>
+    <script>
+        let imgArr = ["../img/2021467.jpg","../img/2021467.jpg","../img/2021467.jpg","../img/2021467.jpg"] 
+        var init = {
+            // 图片渲染
+            render(){
+                let html = "";
+                imgArr.forEach((item,index)=>{
+                    html += `
+                        <li><img src="${item}" alt="Picture ${index+1}"></li>
+                    `
+                })
+                $("#images").html(html);
+            },
+            // 图片放大
+            showImg(elems,elem=null){
+                if(elem){
+                    var $image = $(elem);
+
+                    $image.viewer({
+                        inline: true,
+                        viewed: function() {
+                            // 放大到多少 --- zoomTo
+                            $image.viewer('zoomTo', 1);
+                        }
+                    });
+                    // Get the Viewer.js instance after initialized
+                    var viewer = $image.data('viewer');
+                }
+                // View a list of images
+                $(elems).viewer();
+            }
+        }
+        // 初始化渲染
+        $(function(){
+            init.render();
+            init.showImg('#images');
+        })
+      
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.voice {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(66, 66, 66, 0.3);
+  display: flex;
+  justify-content: center;
+}
+
+.icon-show {
+  font-size: 60rpx;
+  color: #fff;
+}
+
+.icon-body {
+  position: absolute;
+  bottom: 120rpx;
+  width: 200rpx;
+  height: 200rpx;
+  background: #00cc77;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  color: #fff;
+}

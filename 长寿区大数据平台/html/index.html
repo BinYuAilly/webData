@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../easyui/js/jquery.min.js"></script>
+    <script src="../utils/plug/digitroll_bak.js"></script>
+    <style>
+        .prompt-box{
+            margin-top: 1.25rem !important;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .main{
+            width: 80%;
+            min-width: 50rem !important;
+            margin: 0 auto;
+        }
+        .title-h2{
+            text-align: center;
+            margin-bottom: 1.25rem !important;
+        }
+        .point-span{
+            display: inline-block;
+            width: 0.9375rem !important;
+            height: 0.9375rem !important;
+            border-radius: 1.25rem !important;
+            margin-right: 0.3125rem !important;
+        }
+        .point-bg1{
+            background: #ff0000;
+        }
+        .point-bg2{
+            background: #ffd200;
+        }
+        .point-bg3{
+            background: #22c222;
+        }
+        .prompt-item{
+            display: flex;
+            align-items: center;
+            margin-right: 1.25rem !important;
+        }
+        .content-box{
+            
+        }
+        /* 审核流程 */
+        .cart-main-box,
+        /* 统计 */
+        .statistical-main-box{
+            display: flex;
+        }
+        .statistical-main-box{
+            flex-wrap: wrap;
+        }
+        .cart-box{
+            width: 9.375rem !important;
+            height: 10rem !important;
+            background: #efefef;
+            border-radius: 0.9375rem !important;
+            box-shadow: 0.0625rem 0.0625rem 0.325rem #ccc !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .cart-box-left{
+            margin-left: 1.5rem !important;
+        }
+        .cart-box-shift{
+            background: #efefef;
+        }
+        .cart-box-shift1{
+            background: #f2fbf8;
+        }
+        .cart-img{
+            margin-top: 1.25rem !important;
+        }
+        .cart-text{
+            margin-top: 0.625rem !important;
+        }
+        .cart-point-box{
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            margin-top: 0.9375rem !important;
+        }
+        .cart-point-box-item{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cart-point-box-item .text-size{
+            font-size: 0.75rem !important;
+        }
+        .text-color1{
+            color: #ff0000;
+        }
+        .text-color2{
+            color: #ffd200;
+        }
+        .text-color3{
+            color: #22c222;
+        }
+        .cart-point-size{
+            width: 0.625rem !important;
+            height: 0.625rem !important;
+            margin-right: 0;
+        }
+        .next-box{
+            position: absolute;
+            top: 2rem !important;
+            right: -2.5rem !important;
+            z-index: 100;
+        }
+        .box-none{
+            display: none !important;
+        }
+        /* 统计分数 */
+        .margin-top10{
+            margin-top: 0.625rem !important;
+        }
+        .statistical-margin-left{
+            
+        }
+        .statistical-box{
+            width: 100px;
+            height: 80px;
+            background: #e7f3ff;
+            border: 0.0625rem solid #c5e0fc;
+            border-radius: 0.75rem !important;
+            margin-top: 0.625rem !important;
+        }
+        .statistical-title{
+            text-align: center;
+            position: relative;
+            padding-top: 0.75rem !important;
+            color: #0058b3;
+        }
+        .statistical-score{
+            display: flex;
+            justify-content: center;
+            margin-top: 0.3125rem !important;
+        }
+        .statistical-score div.score{
+            width: 1.25rem !important;
+            height: 2.1875rem !important;
+            /* border: 1px solid #ddd; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #a2c0f4;
+            color: #0058b3;
+            font-weight: bold;
+            font-size: 1.5rem !important;
+            font-family: calculatorFont;
+        }
+        .score-left{
+            margin-left: 0.125rem !important;
+        }
+        .status-icon-pos{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+        .margin-right15{
+            margin-right: 0.9375rem !important;
+        }
+        .num div{
+            font-size: 2.5rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="prompt-box">
+            <div class="prompt-item">
+                <span class="point-span point-bg1"></span>
+                <span>超期待办</span>
+            </div>
+            <div class="prompt-item">
+                <span class="point-span point-bg2"></span>
+                <span>临期待办</span>
+            </div>
+            <div class="prompt-item">
+                <span class="point-span point-bg3"></span>
+                <span>待办</span>
+            </div>
+        </div>
+        <div>
+            <h2 class="title-h2">政治生态待办事项</h2>
+        </div>
+        <div class="content-box">
+            <div class="cart-main-box">
+                <div class="cart-box">
+                    <div class="cart-img">
+                        <img src="../img/cj_icon.png" alt="">
+                    </div>
+                    <div class="cart-text">
+                        采集
+                    </div>
+                    <div class="next-box">
+                        <img src="../img/next_icon.png" alt="">
+                    </div>
+                </div>
+         
+                <div class="cart-box cart-box-shift1 cart-box-left">
+                    <div class="cart-img">
+                        <img src="../img/sp_icon1.png" alt="">
+                    </div>
+                    <div class="cart-text">
+                        扣分审批
+                    </div>
+                    <div class="cart-point-box">
+                        <div class="cart-point-box-item">
+                            <span class="point-span cart-point-size point-bg1"></span>
+                            <div class="text-size text-color1">(10)</div>
+                        </div>
+                        <div class="cart-point-box-item">
+                            <span class="point-span cart-point-size point-bg2"></span>
+                            <div class="text-size text-color2">(6)</div>
+                        </div>
+                        <div class="cart-point-box-item">
+                            <span class="point-span cart-point-size point-bg3"></span>
+                            <div class="text-size text-color3">(9)</div>
+                        </div>
+                    </div>
+                    <div class="next-box">
+                        <img src="../img/next_icon.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="border-bottom: 1px solid #ddd;margin-top: 0.625rem;"></div>
+    <div class="main">
+        <div class="content-box">
+            <div class="statistical-main-box">
+                <div class="statistical-box">
+                    <div class="statistical-title">
+                        区民政局
+                        <div class="status-icon-pos">
+                            <img src="../img/status_icon1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="statistical-score">
+                        <div class="score">0</div>
+                        <div class="score score-left">0</div>
+                        <div class="score score-left">0</div>
+                    </div>
+                </div>
+                <div class="statistical-box margin-right15">
+                    <div class="statistical-title">
+                        区民政局
+                        <div class="status-icon-pos">
+                            <img src="../img/status_icon1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="statistical-score">
+                        <div class="score">0</div>
+                        <div class="score score-left">0</div>
+                        <div class="score score-left">0</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var init = {
+            processRender(){
+                // 流程渲染
+                let data = [
+                    {icon:"../img/cj_icon.png",text:"采集",bg_status:0},
+                    {icon:"../img/sp_icon1.png",text:"扣分审批", point:{cq_num:10,lq_num:6,db_num:9,},bg_status:1},
+                    {icon:"../img/yjtzs_icon.png",text:"预警通知书",bg_status:0},
+                    {icon:"../img/zg_icon.png",text:"整改", point:{cq_num:10,lq_num:6,db_num:9,}, bg_status:0},
+                    {icon:"../img/pg_icon.png",text:"评估", point:{cq_num:10,lq_num:6,db_num:9,}, bg_status:0},
+                    {icon:"../img/pgsp_icon1.png",text:"评估审批", point:{cq_num:10,lq_num:6,db_num:9,},bg_status:1},
+                    {icon:"../img/zzwz_icon1.png",text:"追责问责",bg_status:1},
+                    {icon:"../img/ndbg_icon1.png",text:"年度报告",bg_status:1},
+                ]
+                let html = '';
+                data.forEach((item,index)=>{
+                    html += `
+                        <div class="cart-box cart-box-shift${item.bg_status} ${index!=0 ? 'cart-box-left' : ''}">
+                            <div class="cart-img">
+                                <img src="${item.icon}" alt="">
+                            </div>
+                            <div class="cart-text">
+                                ${item.text}
+                            </div>
+                            <div class="cart-point-box ${item.point ? '' : 'box-none'}">
+                                <div class="cart-point-box-item">
+                                    <span class="point-span cart-point-size point-bg1"></span>
+                                    <div class="text-size text-color1">(${item.point && item.point.cq_num})</div>
+                                </div>
+                                <div class="cart-point-box-item">
+                                    <span class="point-span cart-point-size point-bg2"></span>
+                                    <div class="text-size text-color2">(${item.point && item.point.lq_num})</div>
+                                </div>
+                                <div class="cart-point-box-item">
+                                    <span class="point-span cart-point-size point-bg3"></span>
+                                    <div class="text-size text-color3">(${item.point && item.point.db_num})</div>
+                                </div>
+                            </div>
+                            <div class="next-box ${data.length == index+1 ? 'box-none':''}">
+                                <img src="../img/next_icon.png" alt="">
+                            </div>
+                        </div>
+                    `
+                })
+                $(".cart-main-box").html(html);
+            },
+            // 统计 渲染
+            statisticalRender(){
+                let data = [
+                    {title:"区民政局",img:'../img/status_icon.png', score:[1,0,4] },
+                    {title:"区民政局",img:'../img/status_icon1.png', score:[1,2,2] },
+                    {title:"区民政局", score:[1,3,3] },
+                    {title:"区民政局", score:[1,4,4] },
+                    {title:"区民政局", score:[1,5,8] },
+                    {title:"区民政局", score:[1,6,6] },
+                    {title:"区民政局", score:[1,0,7] },
+                    {title:"区民政局", score:[1,2,5] },
+                    {title:"区民政局", score:[1,3,4] },
+                    {title:"区民政局", score:[1,4,3] },
+                    {title:"区民政局", score:[1,5,5] },
+                    {title:"区民政局", score:[1,6,4] },
+                    {title:"区民政局", score:[1,0,2] },
+                    {title:"区民政局", score:[1,2,2] },
+                    {title:"区民政局", score:[1,3,0] },
+                    {title:"区民政局", score:[1,4,0] },
+                    {title:"区民政局", score:[1,5,0] },
+                    {title:"区民政局", score:[1,6,0] },
+                    {title:"区民政局", score:[1,2,5] },
+                    {title:"区民政局", score:[1,3,4] },
+                    {title:"区民政局", score:[1,4,3] },
+                    {title:"区民政局", score:[1,5,5] },
+                    {title:"区民政局", score:[1,6,4] },
+                    {title:"区民政局", score:[1,0,2] },
+                    {title:"区民政局", score:[1,2,2] },
+                    {title:"区民政局", score:[1,3,0] },
+                    {title:"区民政局", score:[1,4,0] },
+                    {title:"区民政局", score:[1,5,0] },
+                    {title:"区民政局", score:[1,6,0] },
+                ]
+                let html = '';
+                data.forEach((item,index)=>{
+                    html+=`
+                        <div class="statistical-box statistical-box${index+1} margin-right15">
+                            <div class="statistical-title">
+                                ${item.title}
+                                <div class="status-icon-pos">
+                                    <img src="${item.img && item.img}" alt="">
+                                </div>
+                            </div>
+                            <div class="statistical-score">
+                                <div class="score score0">${item.score[0]}</div>
+                                <div class="score score1 score-left">${item.score[1]}</div>
+                                <div class="score score2 score-left">${item.score[2]}</div>
+                            </div>
+                        </div>
+                    `
+                })
+                $(".statistical-main-box").html(html);
+                data.forEach((item,index)=>{
+                    digitRoll.render(index+1, item.score)
+                })
+            }
+        }
+        // 数字轮播
+        var digitRoll= {
+            render(cnt,numArr){
+                // console.log(cnt,numArr);
+                numArr.forEach((item,index)=>{
+                    // console.log(cnt,index,item);
+                    // return;
+                    new DigitRoll({
+                        container:`.statistical-box${cnt} .score${index}`,
+                    }).roll(Number(item))
+                })
+           
+            }
+        }
+        $(function(){
+            // 流程渲染
+            init.processRender();
+            // 统计
+            init.statisticalRender();
+        })
+    </script>
+</body>
+</html>

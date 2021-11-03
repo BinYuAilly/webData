@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/easyui.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.easyui.min.js"></script>
+    <script src="./js/easyui-lang-zh_CN.js"></script>
+    <style>
+        .showText{
+            font-size: 16px;
+        }
+      .none{
+          display: none;
+      }
+      .block{
+          display: block;
+      }
+      .myInput{
+         display: flex;
+         position: relative;
+      }
+      .myInput input{
+         height: 30px;
+      }
+      .myInputBox{
+         display: flex;
+         align-items: center;
+         width: 100%;
+         margin-top: 20px;
+      }
+        .border-box{
+            border-color: #95B8E7;
+        }
+        .show-box{
+            position: absolute;
+            z-index: 100;
+            background-color: #fff;
+            top:29px;
+            left: 0px;
+            height: 200px;
+            width: 100%;
+            border: 1px solid #95B8E7;
+        }
+        .input-title{
+            width: 50%;
+            text-align: right;
+        }
+        .selBg{
+            background-color: sandybrown;
+            color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+        .addBtn{
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body onload="load()">
+    <span class="addBtn" onclick="addBtn()">+</span>
+<div class="myInputBox">
+    <div class="input-title">myInput:</div>
+    <div class="myInput">
+        <input type="text" class="showText showText0">
+        <span onclick="showBox(0,'show-box0')" style="display:inline-block;position: absolute;right: 1px;top: 1px;">
+            <a href="javascript:;" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 26px; height: 28px;"></a>
+        </span>
+        <div class="show-box show-box0" style="display: none;">
+            
+        </div>
+    </div>
+    <span>+</span>
+    <span>-</span>
+</div>
+<div class="addBox">
+
+</div>
+<div onclick="saveBtn()" style="cursor: pointer;">保存</div>
+<script>
+    let elemShow = '';//存储上一个下拉框
+    let cnt = 1;
+    let idAllArr = [];
+    let ValueArr = [];
+    let data = null;
+    ValueArr.push([]);//input 的 所有值
+    idAllArr.push([]);//所有 id
+    data = [//下拉框数据
+        {text:"重庆",flag:false,id:0},
+        {text:"上海",flag:false,id:1},
+        {text:"北京",flag:false,id:2},
+    ];
+    let Arr = createData(data);
+    let AllArr = [];//所有数据
+    if(Arr.length){
+        Arr.forEach((item,index)=>{
+            if(item.flag == true){
+                idAllArr[0].push(item.id);
+                ValueArr[0].push(item.text);
+            }
+        })  
+        $(`.showText0`).val(ValueArr[0].join(","))
+
+    }
+
+    AllArr.push(Arr);
+    function createData(data){
+        return JSON.parse(JSON.stringify(data));
+    }
+    function addBtn(){//添加选择下拉框
+        let a = createData(data);
+        AllArr.push(a);
+        ValueArr.push([]);
+        idAllArr.push([]);
+        let html = `<div class="myInputBox myInputBox${cnt}">
+                        <div class="input-title"></div>
+                        <div class="myInput">
+                            <input type="text" class="showText showText${cnt}">
+                            <span onclick="showBox(${cnt},'show-box${cnt}')"  style="display:inline-block;position: absolute;right: 1px;top: 1px;">
+                                <a href="javascript:;" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 26px; height: 28px;"></a>
+                            </span>
+                            <div class="show-box show-box${cnt}" style="display: none;">
+                                
+                            </div>
+                        </div>
+                        
+                        <span>+</span>
+                        <span onclick="delBtn(${cnt})" style="cursor: pointer;">-</span>
+                    </div>`
+        cnt++;
+        $(".addBox").append(html);
+    }
+    function load(index=0,el=null){//加载页面
+        console.log("load")
+        let html = '';
+        let Arr = null;
+        if(el){
+            Arr = [...AllArr[index]];
+        }else{
+            Arr = [...AllArr[0]];
+        }
+        if(Arr.length){
+            Arr.forEach((item,itemIdx)=>{
+                html += `
+                    <div onclick="selItem(event)" data-id="${item.id}" data-idx="${index}" data-text="${item.text}" data-flag="${item.flag}" data-el="show_item_${itemIdx}" class="show_item_${itemIdx} ${item.flag ? 'selBg':''}">${item.text}</div>
+                `
+            })
+        }
+        let div = `<div id="main-html${index}">${html}</div>`
+        if(el){
+            $(el).append(div);
+        } else {
+            $('.show-box0').append(div);
+        }
+    }
+    function showBox(idx,e){//下拉框
+        let elem = ""
+        elem = `.${e}`;
+        if(AllArr && AllArr.length && elemShow != elem){
+            AllArr.forEach((item,index)=>{
+                $(`.show-box${index}`).css("display","none");
+            })
+        }
+        elemShow = `.${e}`;
+        let show = $(elem).css("display");
+        if(show=="none"){
+            $(elem).css("display","block");
+            $(`#main-html${idx}`).remove();
+            load(idx,elem);
+        } else{
+            $(elem).css("display","none");
+        }
+    }
+    function selItem(e){//子选项
+        let value = {...e.target.dataset};
+        if(value.flag=="false"){
+            value.flag = true;
+            e.target.dataset.flag = true;
+        } else {
+            value.flag = false;
+            e.target.dataset.flag = false;
+        }
+        let Arr = AllArr[value.idx];//选中的下拉框数据
+        if(Arr.length){
+            Arr.forEach((item,index)=>{
+                if(item.id == value.id){
+                    item.flag = value.flag;
+                }
+            })
+        }
+        console.log(data)
+        AllArr[value.idx] = Arr;  
+        let contentTextArr = ValueArr[value.idx];
+        let idArr = idAllArr[value.idx];
+        console.log(contentTextArr);
+        if(value.flag){
+            idArr.push(value.id);
+            contentTextArr.push(value.text);
+        } else {
+            if(idArr.length){
+                idArr.forEach((item,index)=>{
+                    if(item==value.id){
+                        idArr.splice(index, 1);
+                    }
+                })
+                contentTextArr.forEach((item,index)=>{
+                    if(item==value.text){
+                        contentTextArr.splice(index, 1);
+                    }
+                })
+            }
+        }
+        ValueArr[value.idx] = contentTextArr;
+        idAllArr[value.idx] = idArr;
+
+        console.log(contentTextArr, idArr);
+        $(`.showText${value.idx}`).val(contentTextArr.join(","))
+        $(`.show-box${value.idx}`).css("display","none");
+        console.log($(`${value.el}`));
+    }
+    function saveBtn(){//保存
+        let textArr = [];
+        let idArr = []
+        if(ValueArr && ValueArr.length){
+            ValueArr.forEach((item, index) => {
+                if(item){
+                    textArr.push(item.join(","));
+                }
+                
+            })
+        }
+        if(idAllArr && idAllArr.length){
+            idAllArr.forEach((item, index) => {
+                if(item){
+                    idArr.push(item.join(","));
+                }
+              
+            })
+        }
+        console.log(textArr, idArr)
+    }
+    function delBtn(idx){//删除
+        AllArr[idx] = null;
+        ValueArr[idx] = null;
+        idAllArr[idx] = null;
+        $(`.myInputBox${idx}`).remove();
+    }
+</script>
+</body>
+</html>

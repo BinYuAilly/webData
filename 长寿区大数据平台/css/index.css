@@ -1,0 +1,15 @@
+@font-face {
+    /*字体名称*/
+    font-family: calculatorFont;
+    /*字体源文件*/
+    src: url('../utils/font/calculatorFontBold.TTF');
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+h2{
+    font-size: 1.5rem !important;
+}

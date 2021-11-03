@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/HanziWriter.js"></script>
+    <script src="../js/word.js"></script>
+    <style>
+        *{
+            user-select: none;
+        }
+        html,body{
+            height: 100%;
+            background: #2a2d38;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100px;
+            height: 80%;
+            text-align: start;
+        }
+        .item-box{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100px;
+        }
+        .end-author{
+            display: none;
+            color: #f9dc60;
+            text-align: center;
+            font-size: 36px;
+            width: 60px;
+        }
+        .end-author.fontSize{
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    </div>
+    <script>
+        var globalData = {
+            HanArr:word.string(),
+        }
+        $(function() {
+            init.render();
+        })
+        var init = {
+            render(){
+                let html = '',htmlAll='';
+                let changeIndex = "";
+                let sty = "margin-top:20px;";
+                let cnt = 0;
+                globalData.HanArr.forEach((item,index)=>{
+                    (function() {
+                        cnt = 0;
+                        for(let i in item){
+                            if(changeIndex!=index){
+                                changeIndex = index;
+                                html += `
+                                    <div id='type_${index}_${i}' style="${i==0 ? sty : ''}"></div>
+                                `;
+                            }else{
+                                cnt++;
+                                html += `
+                                    <div id='type_${index}_${i}'></div>
+                                `;
+                            }
+                        }
+                    })()
+                })
+                html +="<div class='end-author' style='margin-top: 50px;'>|</div>";
+                html +="<div class='end-author'>|</div>";
+                html +="<div class='end-author fontSize'>苏</div>";
+                html +="<div class='end-author fontSize'>轼</div>";
+                $(".container").html(html);
+                setTimeout(()=>{
+                    init.animateWriter();
+                },200)
+            },
+            HanWriter(){
+                const BASE_CONFIG = {
+                    width: 60,
+                    height: 60,
+                    padding: 2,
+                    delayBetweenStrokes: 0,
+                    strokeAnimationSpeed: 10,
+                    showCharacter: false,
+                    showOutline: false,
+                }
+                const WRITER_CONFIG = {
+                    ...BASE_CONFIG,
+                    strokeColor: '#f9dc60'
+                };
+                let writerList = [];
+                globalData.HanArr.forEach((item,index)=>{
+                    for(let i in item){
+                        writerList.push(HanziWriter.create(`type_${index}_${i}`, item[i], WRITER_CONFIG));
+                        if(index >= globalData.HanArr.length-1 && i >=item.length-1){
+                            writerList.push(null);
+                        }
+                    }
+                })
+                console.log(writerList, "writerList++++")
+                return writerList;
+           
+            },
+            async animateWriter(){
+                let writerList = init.HanWriter();
+                for (const writer of writerList) {
+                    if(!writer){
+                        $(".end-author").show();
+                    }else{
+                        await writer.animateCharacter();
+                    }
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

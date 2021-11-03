@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        function file(){
+        
+            let filePath = "D:\\workFile\\web前端\\资料\\gitHub_webData\\webData\\前端读写文件\\file\\2.txt";
+            var fso;
+            try { 
+                fso=new ActiveXObject("Scripting.FileSystemObject"); 
+            
+            } catch (e) { 
+                alert("当前浏览器不支持");
+                return;
+            } 
+            
+            // alert("方法已执行2");
+            // var f1 = fso.createtextfile(filePath, true);
+            // f1.write("这是一个文本文档");  
+            var openf1 = fso.OpenTextFile(filePath);
+            
+            str = openf1.ReadLine();
+            alert("里面的内容为'" + str + "'");
+        
+        
+        }
+    </script>
+</head>
+<body>
+    <button onclick='file()'>创建一个文本文件</button>
+</body>
+</html>

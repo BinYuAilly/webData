@@ -1,0 +1,8 @@
+<view class="index">
+  <view class="voice">
+    <view class="icon-body" catchtap="startRecord" catch:longpress="handleRecordStart" catch:touchmove="handleTouchMove"
+      catch:touchend="handleRecordStop">
+      <view class="icon-show">{{is_show?'结束':'开始'}}</view>
+    </view>
+  </view>
+</view>
