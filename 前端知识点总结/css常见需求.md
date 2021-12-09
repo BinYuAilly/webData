@@ -114,7 +114,8 @@ div{
 ## 8.文字两端对齐
 
 ```css
-    .text-justify{
+方案1：
+	.text-justify{
       width: 200px;
       text-align: justify;
     }
@@ -123,6 +124,9 @@ div{
       display: inline-block;
       padding-left: 100%;
     }
+<div class="text-justify">你的积分</div>
+
+方案2：
     .text-justify1{
       width: 200px;
       text-align: justify;
@@ -131,8 +135,16 @@ div{
       display: inline-block;
       width: 100%;
     }
-<div class="text-justify">你的积分</div>
 <div class="text-justify1">你的积分<i></i></div>
+
+方案3：
+        .text-justify2{
+            width: 200px;
+            display: inline-block;
+            text-align: justify;
+            text-align-last: justify;
+        }
+<div class="text-justify2">你的积分</div>
 ```
 
 
