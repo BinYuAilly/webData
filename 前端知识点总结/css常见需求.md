@@ -109,3 +109,31 @@ div{
 }
 ```
 
+
+
+## 8.文字两端对齐
+
+```css
+    .text-justify{
+      width: 200px;
+      text-align: justify;
+    }
+    .text-justify::after{
+      content: "";
+      display: inline-block;
+      padding-left: 100%;
+    }
+    .text-justify1{
+      width: 200px;
+      text-align: justify;
+    }
+    .text-justify1 i{
+      display: inline-block;
+      width: 100%;
+    }
+<div class="text-justify">你的积分</div>
+<div class="text-justify1">你的积分<i></i></div>
+```
+
+
+
