@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .contain-checkbox{
+            width: 200px;
+        }
+        .item-checkboxs{
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="showCheckValue" style="height: 100px;">
+
+    </div>
+    <div class="contain-checkbox">
+        <div>
+            <input type="checkbox" class="allSel"><label for="">全选</label>
+        </div>
+        <div class="item-checkboxs">
+
+        </div>
+    </div>
+    <script>
+        var globalData = {
+            data: [
+                {name:"吃饭", id:1},
+                {name:"睡觉", id:2},
+                {name:"打豆豆", id:3},
+                {name:"打豆豆1", id:4},
+                {name:"打豆豆2", id:5},
+                {name:"打豆豆3", id:6},
+                {name:"打豆豆4", id:7},
+            ],
+            cnt:0,
+            checkValue:'',
+            checkId:'',
+        }
+        $(function(){
+            init.render();
+        })
+        var init = {
+            render(){
+                let html = ""
+                globalData.data.forEach((item,index)=>{
+                    html += `
+                        <div>
+                            <input type="checkbox" class="item-sel" data-id="${item.id}" data-index="${index}" data-name="${item.name}"><label for="">${item.name}</label>
+                        </div>
+                    `
+                })
+                $(".item-checkboxs").html(html);
+                listen.checkItem();
+                listen.allCheck();
+            }
+        }
+        var listen = {
+            checkItem(){
+                $(".item-sel").click(function(){
+                    let checkValue = globalData.checkValue;
+                    let checkId = globalData.checkId;//id
+                    let checkArr = checkValue.split(",");
+                    let checkIdArr = checkId.split(",");//id
+                    let check = $(this).prop("checked");
+                    let ind = $(this).attr("data-index");
+                    let name = $(this).attr("data-name");
+                    let id = $(this).attr("data-id");//id
+                    
+                    if(check){
+                        globalData.cnt = globalData.cnt+1; 
+                        if(checkValue){
+                            checkValue += `,${name}`;
+                        }else {
+                            checkValue = name;
+                        }
+                        // id
+                        if(checkId){
+                            checkId += `,${id}`;
+                        }else {
+                            checkId = id;
+                        }
+                    }else{
+                        globalData.cnt = globalData.cnt-1; 
+                        let strArr = []
+                        let strIdArr = []
+                        checkArr.forEach( (item,index) => {
+                            if(item!=name){
+                                strArr.push(item); 
+                            }
+                        })
+                        checkValue = strArr.join(",");
+                        checkIdArr.forEach( (item,index) => {
+                            if(item!=id){
+                                strIdArr.push(item); 
+                            }
+                        })
+                        checkId = strIdArr.join(",");
+                    }
+                    if(globalData.cnt == globalData.data.length){
+                        $(".allSel").prop("checked", true);
+                    }else{
+                        $(".allSel").prop("checked", false);
+                    }
+                    globalData.checkValue = checkValue;
+                    globalData.checkId = checkId;
+                    console.log(globalData.checkValue, globalData.checkId)
+                    $(".showCheckValue").text(globalData.checkValue)
+                })
+            },
+            allCheck(){
+                $(".allSel").click(function(){
+                    let check = $(this).prop("checked");
+                    let checkValue = '';
+                    let checkArr = [];
+
+                    let checkId = '';
+                    let checkIdArr = [];
+                    if(check){
+                        globalData.cnt = globalData.data.length;
+                        $(".item-sel").prop("checked", true);
+                        globalData.data.forEach(item=>{
+                            checkArr.push(item.name);
+                            checkIdArr.push(item.id);
+                        })
+                        checkValue = checkArr.join(",");
+                        checkId = checkIdArr.join(",");
+                    }else{
+                        globalData.cnt = 0;
+                        $(".item-sel").prop("checked", false);
+                        checkValue = "";
+                        checkId = "";
+                    }
+                    console.log(checkValue, "checkValue--------", checkId)
+                    globalData.checkValue = checkValue;
+                    globalData.checkId = checkId;
+                    $(".showCheckValue").text(globalData.checkValue)
+                })
+            }
+        }
+    </script>
+</body>
+</html>

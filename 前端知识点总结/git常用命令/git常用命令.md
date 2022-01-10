@@ -37,3 +37,7 @@ $ git config --global user.name "freedom"
 
 # 5.删除git用户名、密码、邮箱的配置
 
+# 6.查看项目远程地址
+
+git remote -v
+

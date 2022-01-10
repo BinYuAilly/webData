@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/video-js.css">
+    <script src="../js/videojs-ie8.min.js"></script>
+    <script src="../js/video.js"></script>
+</head>
+<body>
+    <h2>推流测试</h2>
+    <div>
+        <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup="{}">
+            <source src="rtmp://127.0.0.1:1935/live/1234" type="rtmp/flv">
+        </video>
+        <a href="https://get.adobe.com/cn/flashplayer/" class="flashLoadMsg" target="_blank"> 启动Flash播放器</a>
+    </div>
+    <!-- <script src="../js/mp3_parser.js"></script> -->
+</body>
+</html>

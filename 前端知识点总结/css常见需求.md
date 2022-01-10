@@ -149,3 +149,17 @@ div{
 
 
 
+## 9.文字纵向排列
+
+```css
+.lr{
+    height: 200px;
+    /* 默认：水平方向，从上到下 */
+    writing-mode:horizontal-tb; 
+    /* //垂直方向，从右向左 */
+    writing-mode:vertical-rl;  
+    /* //垂直方向，从左向右 */
+    /* writing-mode:vertical-lr;  */
+}
+```
+
