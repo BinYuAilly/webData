@@ -163,3 +163,16 @@ div{
 }
 ```
 
+## 10.打印页面设置
+
+```css
+/* 纵向: portrait; 横向: landscape */
+@page { 
+size: portrait; 
+
+/* margin: 2cm 2.5cm 2cm 2.5cm; */
+}
+
+/* @page { size: landscape; } */
+```
+
