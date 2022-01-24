@@ -176,3 +176,25 @@ size: portrait;
 /* @page { size: landscape; } */
 ```
 
+
+
+## 11.选择器 模糊匹配
+
+```css
+/*所有class包含"icon"字符串的元素都会被选中*/
+
+[class*="icon"]{
+ 	color:red;
+ }
+
+/*所有class以"icon"字符串开头的元素都会被选中*/
+[class^="icon"]{
+  	color:red;
+}
+
+/*所有class以"icon"结尾的元素都会被选中*/
+[class$="icon"]{
+  	color:red;
+}
+```
+
