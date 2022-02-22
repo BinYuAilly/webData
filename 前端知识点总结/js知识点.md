@@ -18,3 +18,11 @@
     decodeURI("%E4%BD%A0%E5%A5%BD"); //---------------------"你好"
 ```
 
+## 3.ES6用来比较两个值是否严格相等 Object.is ,与严格比较运算符（===）的行为基本一致。
+
+```js
+console.log(NaN === NaN); // false
+console.log(0 === -0);     // true
+Object.is(NaN, NaN) // true 
+Object.is(+0, -0) // false
+```
