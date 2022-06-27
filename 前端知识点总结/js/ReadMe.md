@@ -7,3 +7,5 @@
 #### 	datagrid-export-heads.js ---- (多级头)
 
 #### 	datagrid-export.js  ---- (一级头)
+
+## 3.qrcode.js生成二维码

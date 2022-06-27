@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/qrcode.js"></script>
+</head>
+<body>
+    <div class="codeT" data-code="dfnkjf12984">
+
+    </div>
+
+    <script>
+        $(function(){
+            init.createQrcode();
+        })
+        var init = {
+            createQrcode() {
+                $(".codeT").each((index, item) => {
+                    //实例化
+                    let qrcode = new QRCode(
+                        //二维码存放的 容器 元素
+                        item, {
+                        width: 96, //设置宽高
+                        height: 96
+                    }
+                    );
+                    console.log($(item).attr("data-code"))
+                    //根据input框的值生成二维码
+                    qrcode.makeCode($(item).attr("data-code"));
+                })
+            },
+        }
+    </script>
+</body>
+</html>

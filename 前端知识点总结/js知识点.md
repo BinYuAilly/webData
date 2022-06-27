@@ -26,3 +26,32 @@ console.log(0 === -0);     // true
 Object.is(NaN, NaN) // true 
 Object.is(+0, -0) // false
 ```
+
+
+
+## 4.阻止冒泡事件 和 默认事件
+
+```
+// 阻止默认事件
+e.preventDefault();
+// 阻止事件冒泡
+e.stopPropagation();
+// jQuery 中使用 ，原生 js 可能会无效
+return false; -- 相当于同时调用了 e.preventDefault(); 和 e.stopPropagation();
+```
+
+
+
+## 5.点击空白处关闭弹框
+
+```js
+$(document).mouseup(function(e) { 
+    var morePop = $('more-show-box');  
+    if(!morePop.is(e.target) && morePop.has(e.target).length === 0) { 
+        // 可以在这里关闭弹窗
+        $(".more-show-box").hide();
+        $(".combo-arrow").attr("data-flag", false);
+    }  
+});
+```
+

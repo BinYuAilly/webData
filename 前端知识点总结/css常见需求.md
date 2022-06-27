@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 ## 1.文字 一行居右 多行居左：
 
 ```
@@ -80,6 +84,24 @@
 ::-webkit-scrollbar {
     /*隐藏滚轮*/
     display: none;
+}
+
+/* ::-webkit-scrollbar ,兼容chrome和safari浏览器 */
+.right-two-echart .table-body-box::-webkit-scrollbar,
+.right-one-echart::-webkit-scrollbar {
+	display: none;
+}
+
+/* 兼容火狐 */
+.right-two-echart .table-body-box,
+.right-one-echart {
+	scrollbar-width: none;
+}
+
+/* 兼容IE10+ */
+.right-two-echart .table-body-box,
+.right-one-echart {
+	-ms-overflow-style: none;
 }
 ```
 
@@ -202,5 +224,38 @@ size: portrait;
 
 ```
 1px ==> 0.75pt
+```
+
+
+
+## 13.a标签样式定义
+
+```
+text-decoration: none; //去掉下划线
+
+```
+
+
+
+## 14.直角缺角
+
+```css
+background:linear-gradient(225deg,transparent 10px,#2baaca 0);
+```
+
+
+
+## 15.Vue 中 v-html 里的样式更改  
+
+```css
+.eaa-xy>>>.tk{
+  text-decoration:underline;// 下划线
+}
+```
+
+## 16.下划线
+
+```css
+text-decoration:underline;// 下划线
 ```
 

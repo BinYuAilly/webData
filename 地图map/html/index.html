@@ -19,13 +19,34 @@
     }
     </style>
     <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=RgDhMkdHfTU8VYENYUddrjITFZV3i9gn"></script>
+    <script src="../js/jquery.min.js"></script>
 </head>
 <body>
     <div id="container"></div>
 </body>
 </html>
 <script>
-var map = new BMapGL.Map('container'); // 创建Map实例
-map.centerAndZoom('上海市', 12); // 初始化地图,设置中心点坐标和地图级别
-map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+// var map = new BMapGL.Map('container'); // 创建Map实例
+// map.centerAndZoom('上海市', 12); // 初始化地图,设置中心点坐标和地图级别
+// map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+$(function(){
+    init.getAddress();
+})
+var init = {
+
+    getAddress(){
+        let lang = [106.5531, 29.5569]
+        var map = new BMapGL.Map("container");
+        map.centerAndZoom(new BMapGL.Point( lang[0], lang[1] ), 13);
+        map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+        // 创建地理编码实例
+        var myGeo = new BMapGL.Geocoder();
+        // 根据坐标得到地址描述
+        myGeo.getLocation(new BMapGL.Point(lang[0], lang[1]), function(result){
+            if (result){
+            alert(result.address);
+            }
+        });
+    }
+}
 </script>
