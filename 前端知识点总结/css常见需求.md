@@ -189,6 +189,7 @@ div{
 
 ```css
 /* 纵向: portrait; 横向: landscape */
+/* A4: 210mm×297mm */
 @page { 
 size: portrait; 
 
@@ -258,4 +259,61 @@ background:linear-gradient(225deg,transparent 10px,#2baaca 0);
 ```css
 text-decoration:underline;// 下划线
 ```
+
+
+
+## 17.自定义 radio 样式
+
+```css
+
+input[type="radio"] {
+    clip: rect(0, 0, 0, 0);
+    width: 0px;
+    height: 20px;
+}
+
+input[type="radio"]::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    border-radius: 50%;
+    border: 1px solid #4EBC3B;
+    box-sizing: border-box;
+}
+
+input[type="radio"]:checked::before {
+    background-color: #4EBC3B;
+    background-clip: content-box;
+    padding: 3px;
+    box-sizing: border-box;
+}
+```
+
+## 18.深度作用选择器
+
+```
+>>> (可能存在问题)
+/deep/   (less)
+::v-deep (sass)
+```
+
+
+
+## 19.css打印分页
+
+```html
+// 加空格 &nbsp;
+.page-end {
+    page-break-after: always;
+    border: none !important;
+}
+
+<div class="page-end" style="visibility: hidden;">&nbsp;</div>
+<div class="page-end" style="visibility: hidden;">&nbsp;</div>
+```
+
+
 

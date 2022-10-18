@@ -55,3 +55,78 @@ $(document).mouseup(function(e) {
 });
 ```
 
+## 6.禁止浏览器回退
+
+```js
+// 禁止浏览器回退
+history.pushState(null, null, document.URL);
+window.addEventListener('popstate', function () {
+    history.pushState(null, null, document.URL);
+});
+```
+
+
+
+## 7.iframe 获取子页面元素
+
+```js
+
+let childFrame = window.document.querySelector(`.import-page>iframe`).contentWindow;
+childFrame.document
+```
+
+
+
+## 8.获取url传参
+
+```js
+
+function ParseParams(){
+    this.params = null
+}
+ParseParams.prototype = {
+    init(){
+        console.log(location)
+        let params = {};
+        let paramsStr = location.search.slice(1);
+        if(!paramsStr){
+            return;
+        }
+        paramsStr = paramsStr.split(`&`);
+        if(paramsStr.length){
+            paramsStr.forEach( (str,index) => {
+                str = str.split(`=`);
+                params[ str[0] ] = str[1];
+            });
+        }
+        this.params = params;
+    },
+    /**
+    *@field 要查找的参数
+    */ 
+    getParams(field){
+        if(this.params && this.params[field]){
+            return this.params[field];
+        } else {
+            return null;
+        }
+    }
+}
+
+//使用
+let parseparams = new ParseParams();
+parseparams.init();
+globalData.shiftType = parseparams.getParams('type');
+```
+
+## 9.iframe 获取父页面 的元素
+
+```js
+/**
+    window.parent.document ---上一级页面,
+    window.parent.parent.document ---上两级页面,  
+    parent---有几个 就是上几级页面
+*/ 
+$(`.operation-boxs .btn-bg-color[data-type=print]`, window.parent.document )
+```
+

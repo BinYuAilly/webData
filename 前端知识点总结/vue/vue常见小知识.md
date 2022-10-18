@@ -20,3 +20,13 @@ this.$router.push({ name: 'usersManage', params: { userId: 111 }});
 console.log(this.$route.params.userId) // 111
 ```
 
+
+
+### 更改组件样式
+
+```css
+::v-deep .class {
+	color: #fff;
+}
+```
+
